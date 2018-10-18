@@ -1,4 +1,4 @@
-﻿namespace Feeder.Business
+﻿namespace Feeder.Core
 {
     using Feeder.Data.Entities;
     using Microsoft.SyndicationFeed;
@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using System.Xml;
 
-    public class FeederService
+    public class FeederService : IFeederService
     {
         private readonly string _feedUri;
 
@@ -16,7 +16,7 @@
             _feedUri = feedUri;
         }
 
-        public async Task GetFeed()
+        public async Task GetFeedsAsync()
         {
             var feeds = new List<Item>();
             using (var xmlReader = XmlReader.Create(_feedUri,new XmlReaderSettings() { Async = true }))
