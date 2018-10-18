@@ -1,17 +1,25 @@
 ﻿namespace Feeder.Data.Entities
 {
-    using System.Collections.Generic;
-
     public class Feed
     {
-        public long Id { get; set; }
-        public string Title { get; set; }
-        public string Link { get; set; }
-        public string Description { get; set; }
-        public string CopyRight { get; set; }
-        public string Category { get; set; }
-        public string Language { get; set; }
-        public FeedImage Image { get; set; }
-        //public ICollection<Item> Feeds { get; set; }
+        public long Id { get; private set; }
+
+        public string Title { get; private set; }
+
+        public string Link { get; private set; }
+
+        public long CollectionId { get; private set; }
+
+        public virtual Collection Collection { get; private set; }
+
+        public static Feed New(string title, string link, Collection collection)
+        {
+            return new Feed
+            {
+                Title = title,
+                Link = link,
+                Collection = collection
+            };
+        }
     }
 }
