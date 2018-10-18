@@ -1,4 +1,4 @@
-﻿namespace Feeder.Business
+﻿namespace Feeder.Core
 {
     using Feeder.Data.Entities;
     using Microsoft.SyndicationFeed;
