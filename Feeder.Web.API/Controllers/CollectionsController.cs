@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-namespace Feeder.Web.API.Controllers
+﻿namespace Feeder.Web.API.Controllers
 {
+    using System.Collections.Generic;
     using Feeder.API.Models.Collection;
     using Feeder.Data.Entities;
+    using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
