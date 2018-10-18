@@ -13,8 +13,10 @@
                 .ValueGeneratedOnAdd();
 
             builder
-                .Property(x => x.CollectionName)
+                .Property(x => x.Name)
                 .IsRequired();
+
+ 
         }
     }
 }
