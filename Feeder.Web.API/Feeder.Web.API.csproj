@@ -11,13 +11,14 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Feeder.API.Models\Feeder.API.Models.csproj" />
-    <ProjectReference Include="..\Feeder.Business\Feeder.Business.csproj" />
+    <ProjectReference Include="..\Feeder.Business\Feeder.Core.csproj" />
     <ProjectReference Include="..\Feeder.Data\Feeder.Data.csproj" />
   </ItemGroup>
 

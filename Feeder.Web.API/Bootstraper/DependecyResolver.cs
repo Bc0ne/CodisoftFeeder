@@ -24,6 +24,7 @@
             builder.RegisterType<FeederContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<CollectionRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<FeedRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
         }
     }
 }

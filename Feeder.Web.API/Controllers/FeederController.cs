@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Feeder.Business;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Feeder.Web.API.Controllers
+﻿namespace Feeder.Web.API.Controllers
 {
+    using System.Threading.Tasks;
+    using Feeder.Core;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/feeds")]
     [ApiController]
     public class FeederController : ControllerBase
@@ -16,7 +13,7 @@ namespace Feeder.Web.API.Controllers
         public async Task<IActionResult> Get()
         {
             FeederService service = new FeederService("http://feeds.feedburner.com/netCurryRecentArticles");
-            await service.GetFeed();
+            await service.GetFeedsAsync();
             return Ok();
         }
 
