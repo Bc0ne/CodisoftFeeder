@@ -1,6 +1,5 @@
 ﻿namespace Feeder.Web.API.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Feeder.API.Models.Collection;
     using Feeder.API.Models.Feed;
@@ -24,9 +23,9 @@
             _feedRepository = feedRepository;
             _feederService = feederService;
         }
-        // GET api/values
+
         [HttpGet]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> GetCollectionNews(long id)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
 
@@ -35,7 +34,7 @@
                 return NotFound("Invalid Collection Id");
             }
 
-            var response = new CollectionOutputModel();
+            var response = new CollectionNewsOutputModel();
 
             response.Id = collection.Id;
             response.Name = collection.Name;
@@ -65,13 +64,18 @@
 
         [HttpPost]
         [Route("new")]
-       public async Task<IActionResult> AddFeedAsync(FeedInputModel model)
+       public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
         {
-            var collection = await _collectionRepository.GetCollectionAsync(model.CollectionId);
+            var collection = await _collectionRepository.GetCollectionAsync(collectionId);
 
             if (collection == null)
             {
                 return NotFound("Invalid collection id");
+            }
+
+            if (!_feederService.IsValidRssUri(model.Link))
+            {
+                return NotFound("Invalid Rss Uri");
             }
 
             var feed = Feed.New(model.Title, model.Link, collection);
