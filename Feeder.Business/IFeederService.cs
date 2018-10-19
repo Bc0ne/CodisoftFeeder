@@ -6,6 +6,6 @@
 
     public interface IFeederService
     {
-        List<Item> GetFeedsAsync();
+        List<Item> GetFeedsAsync(string feedUri);
     }
 }

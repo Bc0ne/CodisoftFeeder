@@ -26,12 +26,12 @@
 
         public async Task<Collection> GetCollectionAsync(long id)
         {
-            return await _context.Collections.SingleOrDefaultAsync(x => x.Id == id);
+            return await _context.Collections.Include(x => x.Feeds).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Collection>> GetCollectionsAsync()
         {
-            return await _context.Collections.Include(x => x.Feeds).ToListAsync();
+            return await _context.Collections.ToListAsync();
         }
     }
 }

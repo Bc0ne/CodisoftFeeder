@@ -12,8 +12,6 @@
             {
                 Title = item.Title,
                 Description = item.Description,
-                PublishDate = item.Published,
-                Link = item.Links.First().Uri.AbsoluteUri,
             };
         }
     }

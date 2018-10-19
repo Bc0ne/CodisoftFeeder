@@ -1,6 +1,7 @@
 ﻿namespace Feeder.Web.API.Bootstraper
 {
     using Autofac;
+    using Feeder.Core;
     using Feeder.Data.Context;
     using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@
 
             builder.RegisterType<CollectionRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<FeedRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<FeederService>().AsImplementedInterfaces().InstancePerLifetimeScope();
         }
     }
 }

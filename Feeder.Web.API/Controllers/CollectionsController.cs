@@ -18,12 +18,10 @@
             _collectionRepository = collectionRepository;
         }
         
-        [HttpGet()]
-        public IActionResult GetCollections()
+        [HttpGet]
+        public async Task<IActionResult> GetCollectionsAsync()
         {
-            List<string> collections = new List<string>();
-            collections.Add("Tech");
-            collections.Add("Sport");
+            var collections = await _collectionRepository.GetCollectionsAsync();
 
             return Ok(collections);
         }

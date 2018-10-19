@@ -13,19 +13,19 @@
 
     public class FeederService : IFeederService
     {
-        private readonly string _feedUri;
+        //private readonly string _feedUri;
 
-        public FeederService(string feedUri)
+        public FeederService()
         {
-            _feedUri = feedUri;
+            //_feedUri = feedUri;
         }
 
-        public List<Item> GetFeedsAsync()
+        public List<Item> GetFeedsAsync(string feedUri)
         {
 
             var webClient = new WebClient();
 
-            var response =  webClient.DownloadString(_feedUri);
+            var response =  webClient.DownloadString(feedUri);
 
             XDocument document = XDocument.Parse(response);
 
