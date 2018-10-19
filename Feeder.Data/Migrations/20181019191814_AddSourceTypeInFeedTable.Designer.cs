@@ -3,14 +3,16 @@ using Feeder.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Feeder.Data.Migrations
 {
     [DbContext(typeof(FeederContext))]
-    partial class FeederContextModelSnapshot : ModelSnapshot
+    [Migration("20181019191814_AddSourceTypeInFeedTable")]
+    partial class AddSourceTypeInFeedTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
