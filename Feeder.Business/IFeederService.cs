@@ -1,9 +1,11 @@
 ﻿namespace Feeder.Core
 {
+    using Feeder.Data.Entities;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public interface IFeederService
     {
-        Task GetFeedsAsync();
+        List<Item> GetFeedsAsync();
     }
 }
