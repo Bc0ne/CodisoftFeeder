@@ -13,7 +13,7 @@ namespace Feeder.Data.Repositiores
             _context = context;
         }
 
-        public async Task AddCollectionAsync(Feed feed)
+        public async Task AddFeedAsync(Feed feed)
         {
             await _context.Feeds.AddAsync(feed);
             await _context.SaveChangesAsync();

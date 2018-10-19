@@ -5,6 +5,6 @@
 
     public interface IFeedRepository
     {
-        Task AddCollectionAsync(Feed feed);
+        Task AddFeedAsync(Feed feed);
     }
 }
