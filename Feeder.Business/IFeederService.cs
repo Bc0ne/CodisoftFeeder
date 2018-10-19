@@ -6,7 +6,7 @@
 
     public interface IFeederService
     {
-        List<Item> GetFeedsAsync(string feedUri);
+        T GetFeedsAsync<T>(string feedUri, Feed.SourceType source);
 
         bool IsValidRssUri(string feedUri);
     }

@@ -9,9 +9,20 @@
 
     public class FeederService : IFeederService
     {
-        public List<Item> GetFeedsAsync(string feedUri)
+        public T GetFeedsAsync<T>(string feedUri, Feed.SourceType source)
         {
+            switch(source)
+            {
+                case Feed.SourceType.RSS:
+                    return (T) Convert.ChangeType(GetRssFeeds(feedUri), typeof(T));
 
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private List<Item> GetRssFeeds(string feedUri)
+        {
             var webClient = new WebClient();
 
             var response = webClient.DownloadString(feedUri);
@@ -47,5 +58,7 @@
                 return false;
             }
         }
+
+        
     }
 }
