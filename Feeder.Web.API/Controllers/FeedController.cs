@@ -1,5 +1,6 @@
 ﻿namespace Feeder.Web.API.Controllers
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Feeder.API.Models.Collection;
     using Feeder.API.Models.Feed;
@@ -25,6 +26,7 @@
         }
 
         [HttpGet]
+        [ResponseCache(VaryByQueryKeys = new string[] {"id"}, Duration = 60)]
         public async Task<IActionResult> GetCollectionNews(long id)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
@@ -38,6 +40,7 @@
 
             response.Id = collection.Id;
             response.Name = collection.Name;
+
             foreach (var feed in collection.Feeds)
             {
                 var feedOutputModel = new FeedOutputModel();
@@ -45,11 +48,10 @@
                 feedOutputModel.Title = feed.Title;
                 feedOutputModel.Link = feed.Link;
 
-                var items = _feederService.GetFeedsAsync(feed.Link);
+                var items = _feederService.GetFeedsAsync<List<Item>>(feed.Link, feed.Type);
 
                 foreach (var item in items)
                 {
-
                     feedOutputModel.Items.Add(new ItemOutputModel
                     {
                         Title = item.Title,
@@ -66,6 +68,11 @@
         [Route("new")]
        public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var collection = await _collectionRepository.GetCollectionAsync(collectionId);
 
             if (collection == null)
@@ -78,11 +85,13 @@
                 return NotFound("Invalid Rss Uri");
             }
 
-            var feed = Feed.New(model.Title, model.Link, collection);
+            var feed = Feed.New(model.Title, model.Link, model.SourceType, collection);
 
             await _feedRepository.AddFeedAsync(feed);
 
             return Ok();
         }
+
+
     }
 }

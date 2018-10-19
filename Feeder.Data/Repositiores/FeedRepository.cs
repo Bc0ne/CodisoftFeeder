@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
-using Feeder.Data.Context;
-using Feeder.Data.Entities;
-
-namespace Feeder.Data.Repositiores
+﻿namespace Feeder.Data.Repositiores
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using Feeder.Data.Context;
+    using Feeder.Data.Entities;
+
     public class FeedRepository : IFeedRepository
     {
         private readonly FeederContext _context;
@@ -17,6 +18,11 @@ namespace Feeder.Data.Repositiores
         {
             await _context.Feeds.AddAsync(feed);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<Feed>> GetCollectionFeedsAsync(long collectionId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
