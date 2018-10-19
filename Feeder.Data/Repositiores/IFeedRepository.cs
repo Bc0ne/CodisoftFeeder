@@ -6,7 +6,12 @@
 
     public interface IFeedRepository
     {
+        Task<Feed> GetFeedAsync(long feedId);
+
         Task AddFeedAsync(Feed feed);
+
         Task<IEnumerable<Feed>> GetCollectionFeedsAsync(long collectionId);
+
+        Task DeleteFeedAsync(Feed feed);
     }
 }

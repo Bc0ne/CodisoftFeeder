@@ -26,12 +26,12 @@
         }
 
         [HttpGet]
-        [ResponseCache(VaryByQueryKeys = new string[] {"id"}, Duration = 60)]
+        [ResponseCache(VaryByQueryKeys = new string[] { "id" }, Duration = 60)]
         public async Task<IActionResult> GetCollectionNews(long id)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
 
-            if(collection == null)
+            if (collection == null)
             {
                 return NotFound("Invalid Collection Id");
             }
@@ -64,9 +64,47 @@
             return Ok(response);
         }
 
+        [HttpGet]
+        [ResponseCache(VaryByQueryKeys = new string[] { "id", "feedId" }, Duration = 60)]
+        [Route("{feedId}")]
+        public async Task<IActionResult> GetFeedNews(long id, long feedId)
+        {
+            var collection = await _collectionRepository.GetCollectionAsync(id);
+
+            if (collection == null)
+            {
+                return NotFound("Invalid Collection Id");
+            }
+
+            var feed = await _feedRepository.GetFeedAsync(feedId);
+
+            if (feed == null)
+            {
+                return NotFound("Invalid Feed Id");
+            }
+
+            var response = new FeedOutputModel();
+
+            response.Id = feed.Id;
+            response.Title = feed.Title;
+
+            var items = _feederService.GetFeedsAsync<List<Item>>(feed.Link, feed.Type);
+
+            foreach (var item in items)
+            {
+                response.Items.Add(new ItemOutputModel
+                {
+                    Title = item.Title,
+                    Description = item.Description,
+                    PublishDate = item.PublishDate
+                });
+            }
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("new")]
-       public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
+        public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -92,6 +130,20 @@
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public async Task<IActionResult> DeleteFeedAsync(long id)
+        {
+            var feed = await _feedRepository.GetFeedAsync(id);
 
+            if (feed == null)
+            {
+                return NotFound();
+            }
+
+            await _feedRepository.DeleteFeedAsync(feed);
+
+            return NoContent();
+        }
     }
 }
