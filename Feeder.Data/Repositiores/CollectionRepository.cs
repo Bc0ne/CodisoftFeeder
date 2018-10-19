@@ -2,7 +2,9 @@
 {
     using Feeder.Data.Context;
     using Feeder.Data.Entities;
+    using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class CollectionRepository : ICollectionRepository
@@ -20,6 +22,16 @@
             await _context.SaveChangesAsync();
 
             return collection.Id;
+        }
+
+        public async Task<Collection> GetCollectionAsync(long id)
+        {
+            return await _context.Collections.SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<Collection>> GetCollectionsAsync()
+        {
+            return await _context.Collections.Include(x => x.Feeds).ToListAsync();
         }
     }
 }
