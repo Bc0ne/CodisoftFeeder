@@ -24,14 +24,25 @@
             return collection.Id;
         }
 
+        public async Task DeleteCollectionAsync(Collection collecton)
+        {
+            _context.Collections.Remove(collecton);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Collection> GetCollectionAsync(long id)
         {
             return await _context.Collections.Include(x => x.Feeds).SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<Collection>> GetCollectionsAsync()
+        public async Task<IEnumerable<Collection>> GetCollectionsAsync()
         {
             return await _context.Collections.ToListAsync();
+        }
+
+        public async Task UpdateCollectionAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
