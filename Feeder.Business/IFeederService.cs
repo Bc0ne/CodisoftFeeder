@@ -7,5 +7,7 @@
     public interface IFeederService
     {
         List<Item> GetFeedsAsync(string feedUri);
+
+        bool IsValidRssUri(string feedUri);
     }
 }
