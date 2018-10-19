@@ -65,8 +65,8 @@
         }
 
         [HttpGet]
-        [ResponseCache(VaryByQueryKeys = new string[] { "id", "feedId" }, Duration = 60)]
         [Route("{feedId}")]
+        [ResponseCache(VaryByQueryKeys = new string[] { "feedId" }, Duration = 60)]
         public async Task<IActionResult> GetFeedNews(long id, long feedId)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
@@ -131,10 +131,10 @@
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
-        public async Task<IActionResult> DeleteFeedAsync(long id)
+        [Route("delete/{feedd}")]
+        public async Task<IActionResult> DeleteFeedAsync(long id, long feedId)
         {
-            var feed = await _feedRepository.GetFeedAsync(id);
+            var feed = await _feedRepository.GetFeedAsync(feedId);
 
             if (feed == null)
             {
