@@ -70,7 +70,7 @@
 
             collection.UpdateCollection(model.CollectionName);
 
-            await _collectionRepository.UpdateCollectonAsync();
+            await _collectionRepository.UpdateCollectionAsync();
 
             return NoContent();
         }
