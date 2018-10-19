@@ -17,5 +17,10 @@
                 Name = collectionName
             };
         }
+
+        public void UpdateCollection(string name)
+        {
+            Name = name;
+        }
     }
 }
