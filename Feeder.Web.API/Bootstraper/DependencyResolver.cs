@@ -6,11 +6,11 @@
     using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Hosting;
 
-    public class DependecyResolver : Module
+    public class DependencyResolver : Module
     {
         private readonly IHostingEnvironment _env;
 
-        public DependecyResolver(IHostingEnvironment env)
+        public DependencyResolver(IHostingEnvironment env)
         {
             _env = env;
         }
