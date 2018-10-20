@@ -66,7 +66,7 @@
 
         [HttpGet]
         [Route("{feedId}")]
-        [ResponseCache(VaryByQueryKeys = new string[] { "feedId" }, Duration = 60)]
+        [ResponseCache(VaryByQueryKeys = new string[] { "id", "feedId" }, Duration = 60)]
         public async Task<IActionResult> GetFeedNews(long id, long feedId)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
@@ -87,6 +87,7 @@
 
             response.Id = feed.Id;
             response.Title = feed.Title;
+            response.Link = feed.Link;
 
             var items = _feederService.GetFeedsAsync<List<Item>>(feed.Link, feed.Type);
 
@@ -103,7 +104,6 @@
         }
 
         [HttpPost]
-        [Route("new")]
         public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
         {
             if (!ModelState.IsValid)
@@ -115,12 +115,12 @@
 
             if (collection == null)
             {
-                return NotFound("Invalid collection id");
+                return NotFound("Invalid Collection Id");
             }
 
             if (!_feederService.IsValidRssUri(model.Link))
             {
-                return NotFound("Invalid Rss Uri");
+                return NotFound("Invalid RSS Uri");
             }
 
             var feed = Feed.New(model.Title, model.Link, model.SourceType, collection);
@@ -130,8 +130,38 @@
             return Ok();
         }
 
+        [HttpPut]
+        [Route("{feedId}")]
+        public async Task<IActionResult> UpdateFeedAsync(long id, long feedId, [FromBody] FeedUpdateModel model)
+        {
+            var collection = await _collectionRepository.GetCollectionAsync(id);
+
+            if (collection == null)
+            {
+                return NotFound("Invalid Collection Id");
+            }
+
+            var feed = await _feedRepository.GetFeedAsync(feedId);
+
+            if (feed == null)
+            {
+                return NotFound("Invalid Feed Id");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            feed.UpdateTitle(model.Title);
+
+            await _feedRepository.UpdateFeedAsync();
+
+            return NoContent();
+        }
+
         [HttpDelete]
-        [Route("delete/{feedd}")]
+        [Route("{feedId}")]
         public async Task<IActionResult> DeleteFeedAsync(long id, long feedId)
         {
             var feed = await _feedRepository.GetFeedAsync(feedId);

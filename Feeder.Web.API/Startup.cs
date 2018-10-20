@@ -45,7 +45,12 @@
                        Version = "v1",
                        Title = "Feeder API",
                        Description = "Feeder - APIs documentation",
-                       TermsOfService = "none"
+                       TermsOfService = "none",
+                       Contact = new Contact
+                       {
+                           Name = "Mahmoud",
+                           Email = "m.moghni99@gmail.com"
+                       }
                    });
            });
         }
@@ -72,6 +77,6 @@
         }
 
         public void ConfigureContainer(ContainerBuilder builder) =>
-            builder.RegisterModule(new DependecyResolver(HostingEnvironment));
+            builder.RegisterModule(new DependencyResolver(HostingEnvironment));
     }
 }
