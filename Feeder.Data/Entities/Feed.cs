@@ -30,5 +30,10 @@
                 Type = type
             };
         }
+
+        public void UpdateTitle(string title)
+        {
+            Title = title;
+        }
     }
 }

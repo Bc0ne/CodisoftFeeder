@@ -1,7 +1,5 @@
 ﻿namespace Feeder.Data.Entities
 {
-    using System;
-
     public class Item
     {
         public string Title { get; set; }
