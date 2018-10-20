@@ -3,6 +3,7 @@
     using Autofac.Extensions.DependencyInjection;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
+    using NLog.Web;
 
     public class Program
     {
@@ -14,6 +15,7 @@
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+            .UseNLog()
             .ConfigureServices(services => services.AddAutofac())
             .Build();
     }
