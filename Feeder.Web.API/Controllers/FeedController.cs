@@ -7,6 +7,7 @@
     using Feeder.Core;
     using Feeder.Data.Entities;
     using Feeder.Data.Repositiores;
+    using Feeder.Web.API.Helpers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Routing;
 
@@ -104,9 +105,20 @@
         [HttpPost]
         public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
         {
-            if (!ModelState.IsValid)
+            if (model == null)
             {
                 return BadRequest();
+            }
+
+            if (!_feederService.IsValidRssUri(model.Link))
+            {
+                ModelState.AddModelError(nameof(model.Link),
+                    "The provided link isnot valid.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new ValidateObjectResult(ModelState);
             }
 
             var collection = await _collectionRepository.GetCollectionAsync(collectionId);
@@ -116,10 +128,7 @@
                 return NotFound("Invalid Collection Id");
             }
 
-            if (!_feederService.IsValidRssUri(model.Link))
-            {
-                return NotFound("Invalid RSS Uri");
-            }
+            
 
             var feed = Feed.New(model.Title, model.Link, model.SourceType, collection);
 
@@ -148,7 +157,7 @@
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return new ValidateObjectResult(ModelState);
             }
 
             feed.UpdateTitle(model.Title);
@@ -166,7 +175,7 @@
 
             if (feed == null)
             {
-                return NotFound();
+                return NotFound("Invalid Feed Id");
             }
 
             await _feedRepository.DeleteFeedAsync(feed);

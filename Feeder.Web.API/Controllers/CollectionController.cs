@@ -6,6 +6,7 @@
     using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
+    using Feeder.Web.API.Helpers;
 
     [Route("api/collections")]
     [ApiController]
@@ -24,6 +25,7 @@
             var collections = await _collectionRepository.GetCollectionsAsync();
 
             var response = new List<CollectionOutputModel>();
+
             foreach (var c in collections)
             {
                 response.Add(new CollectionOutputModel
@@ -44,6 +46,11 @@
                 return BadRequest();
             }
 
+            if (!ModelState.IsValid)
+            {
+                return new ValidateObjectResult(ModelState);
+            }
+
             var collection = Collection.New(model.CollectionName);
 
             var id = await _collectionRepository.AddCollectionAsync(collection);
@@ -62,9 +69,9 @@
                 return NotFound("Invalid collection Id");
             }
 
-            if (string.IsNullOrEmpty(model.CollectionName))
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Name can't be null or empty");
+                return new ValidateObjectResult(ModelState);
             }
 
             collection.UpdateCollection(model.CollectionName);
@@ -82,7 +89,7 @@
 
             if (collection == null)
             {
-                return NotFound();
+                return NotFound("Invalid Collection Id");
             }
 
             await _collectionRepository.DeleteCollectionAsync(collection);
