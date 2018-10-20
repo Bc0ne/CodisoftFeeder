@@ -37,5 +37,10 @@
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task UpdateFeedAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
