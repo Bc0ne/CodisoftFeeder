@@ -78,7 +78,6 @@
         [Route("{id}")]
         public async Task<IActionResult> DeleteCollectionAsync(long id)
         {
-
             var collection = await _collectionRepository.GetCollectionAsync(id);
 
             if (collection == null)

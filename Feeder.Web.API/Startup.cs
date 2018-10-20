@@ -35,7 +35,6 @@
                setupAction.ReturnHttpNotAcceptable = true;
            });
 
-            services.AddResponseCaching();
 
             services.AddSwaggerGen(c =>
            {
@@ -53,12 +52,24 @@
                        }
                    });
            });
+
+            services.AddHttpCacheHeaders(
+                (expirationModelOptions) =>
+                {
+                    expirationModelOptions.MaxAge = 30;
+                },
+                (validationModelOptions) =>
+                {
+                    validationModelOptions.MustRevalidate = true;
+                });
+
+            services.AddResponseCaching();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseResponseCaching();
+
 
             if (env.IsDevelopment())
             {
@@ -72,6 +83,10 @@
                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Feeder API V1");
                c.RoutePrefix = "docs";
            });
+
+            app.UseResponseCaching();
+
+            app.UseHttpCacheHeaders();
 
             app.UseMvc();
         }

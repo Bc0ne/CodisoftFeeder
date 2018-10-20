@@ -26,7 +26,6 @@
         }
 
         [HttpGet]
-        [ResponseCache(VaryByQueryKeys = new string[] { "id" }, Duration = 60)]
         public async Task<IActionResult> GetCollectionNews(long id)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
@@ -66,7 +65,6 @@
 
         [HttpGet]
         [Route("{feedId}")]
-        [ResponseCache(VaryByQueryKeys = new string[] { "id", "feedId" }, Duration = 60)]
         public async Task<IActionResult> GetFeedNews(long id, long feedId)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id);
