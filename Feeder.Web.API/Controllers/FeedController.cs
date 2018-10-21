@@ -47,6 +47,7 @@
                 feedOutputModel.Id = feed.Id;
                 feedOutputModel.Title = feed.Title;
                 feedOutputModel.Link = feed.Link;
+                feedOutputModel.Type = feed.Type.ToString();
 
                 var items =  _feederService.GetFeeds(feed.Link, feed.Type);
 
@@ -88,6 +89,7 @@
             response.Id = feed.Id;
             response.Title = feed.Title;
             response.Link = feed.Link;
+            response.Type = feed.Type.ToString();
 
             var items =  _feederService.GetFeeds(feed.Link, feed.Type);
 
@@ -112,12 +114,6 @@
                 return BadRequest();
             }
 
-            if (!_feederService.IsValidRssUri(model.Link))
-            {
-                ModelState.AddModelError(nameof(model.Link),
-                    "The provided link isnot valid.");
-            }
-
             if (!ModelState.IsValid)
             {
                 return new ValidateObjectResult(ModelState);
@@ -129,8 +125,6 @@
             {
                 return NotFound("Invalid Collection Id");
             }
-
-            
 
             var feed = Feed.New(model.Title, model.Link, model.SourceType, collection);
 

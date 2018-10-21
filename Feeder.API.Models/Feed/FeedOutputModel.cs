@@ -15,6 +15,8 @@
 
         public string Link { get; set; }
 
+        public string Type { get; set; }
+
         public List<ItemOutputModel> Items { get; set; }
 
 
