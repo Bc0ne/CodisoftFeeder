@@ -12,6 +12,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Serilog;
     using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
@@ -55,6 +56,11 @@
                        }
                    });
            });
+
+            //services.AddSingleton((Serilog.ILogger)new LoggerConfiguration()
+            //    .MinimumLevel.Information()
+            //    .WriteTo.File("./Logs/log-{Date}.log")
+            //    .CreateLogger());
 
             services.AddHttpCacheHeaders(
                 (expirationModelOptions) =>
