@@ -48,7 +48,7 @@
                 feedOutputModel.Title = feed.Title;
                 feedOutputModel.Link = feed.Link;
 
-                var items = _feederService.GetFeedsAsync<List<Item>>(feed.Link, feed.Type);
+                var items =  _feederService.GetFeeds(feed.Link, feed.Type);
 
                 foreach (var item in items)
                 {
@@ -56,7 +56,8 @@
                     {
                         Title = item.Title,
                         Description = item.Description,
-                        PublishDate = item.PublishDate
+                        PublishDate = item.PublishDate,
+                        Link = item.Link
                     });
                 }
                 response.Feeds.Add(feedOutputModel);
@@ -88,7 +89,7 @@
             response.Title = feed.Title;
             response.Link = feed.Link;
 
-            var items = _feederService.GetFeedsAsync<List<Item>>(feed.Link, feed.Type);
+            var items =  _feederService.GetFeeds(feed.Link, feed.Type);
 
             foreach (var item in items)
             {
@@ -96,7 +97,8 @@
                 {
                     Title = item.Title,
                     Description = item.Description,
-                    PublishDate = item.PublishDate
+                    PublishDate = item.PublishDate,
+                    Link = item.Link
                 });
             }
             return Ok(response);

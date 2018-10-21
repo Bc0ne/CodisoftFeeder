@@ -7,5 +7,7 @@
         public string Description { get; set; }
 
         public string PublishDate { get; set; }
+
+        public string Link { get; set; }
     }
 }

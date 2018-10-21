@@ -9,54 +9,49 @@
 
     public class FeederService : IFeederService
     {
-        public T GetFeedsAsync<T>(string feedUri, Feed.SourceType source)
+        public ICollection<Item> GetFeeds(string feedUrl, Feed.SourceType source)
         {
-            switch(source)
+            switch (source)
             {
                 case Feed.SourceType.RSS:
-                    return (T) Convert.ChangeType(GetRssFeeds(feedUri), typeof(T));
+                    return GetRSSFeeds(feedUrl);
+
+                case Feed.SourceType.Atom:
+                    return GetAtomFeeds(feedUrl);
 
                 default:
                     throw new NotImplementedException();
             }
         }
 
-        private List<Item> GetRssFeeds(string feedUri)
+        private ICollection<Item> GetRSSFeeds(string feedUrl)
         {
-            var webClient = new WebClient();
+            XDocument document = XDocument.Load(feedUrl);
 
-            var response = webClient.DownloadString(feedUri);
-
-            XDocument document = XDocument.Parse(response);
-
-            var items = (from descendant in document.Descendants("item")
+            var items = (from descendant in document.Root.Elements().Where(i => i.Name.LocalName == "item")
                          select new Item
                          {
-                             Description = descendant.Element("description").Value,
-                             Title = descendant.Element("title").Value,
-                             PublishDate = descendant.Element("pubDate").Value
-
+                             Description = descendant.Elements().First(i => i.Name.LocalName == "description").Value,
+                             Title = descendant.Elements().First(i => i.Name.LocalName == "title").Value,
+                             PublishDate = descendant.Elements().First(i => i.Name.LocalName == "pubDate").Value,
+                             Link = descendant.Elements().First(i => i.Name.LocalName == "link").Attribute("href").Value
                          }).ToList();
-
             return items;
         }
 
-        public bool IsValidRssUri(string feedUri)
+        private ICollection<Item> GetAtomFeeds(string feedUrl)
         {
-            try
-            {
-                var webClient = new WebClient();
+            XDocument document = XDocument.Load(feedUrl);
 
-                var response = webClient.DownloadString(feedUri);
-
-                XDocument document = XDocument.Parse(response);
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            var items = (from descendant in document.Root.Elements().Where(i => i.Name.LocalName == "entry")
+                         select new Item
+                         {
+                             Description = descendant.Elements().First( i => i.Name.LocalName == "content").Value,
+                             Title = descendant.Elements().First(i => i.Name.LocalName == "title").Value,
+                             PublishDate = descendant.Elements().First(i => i.Name.LocalName == "published").Value,
+                             Link = descendant.Elements().First(i => i.Name.LocalName == "link").Attribute("href").Value
+                         }).ToList();
+            return items;
         }
     }
 }
