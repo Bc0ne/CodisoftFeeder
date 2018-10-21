@@ -57,11 +57,6 @@
                    });
            });
 
-            //services.AddSingleton((Serilog.ILogger)new LoggerConfiguration()
-            //    .MinimumLevel.Information()
-            //    .WriteTo.File("./Logs/log-{Date}.log")
-            //    .CreateLogger());
-
             services.AddHttpCacheHeaders(
                 (expirationModelOptions) =>
                 {
