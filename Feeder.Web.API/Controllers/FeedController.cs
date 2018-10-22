@@ -107,7 +107,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFeedAsync(long collectionId, [FromBody] FeedInputModel model)
+        public async Task<IActionResult> AddFeedAsync(long id, [FromBody] FeedInputModel model)
         {
             if (model == null)
             {
@@ -119,7 +119,7 @@
                 return new ValidateObjectResult(ModelState);
             }
 
-            var collection = await _collectionRepository.GetCollectionAsync(collectionId);
+            var collection = await _collectionRepository.GetCollectionAsync(id);
 
             if (collection == null)
             {

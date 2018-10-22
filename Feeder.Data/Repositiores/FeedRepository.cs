@@ -1,7 +1,5 @@
 ﻿namespace Feeder.Data.Repositiores
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Feeder.Data.Context;
     using Feeder.Data.Entities;
@@ -31,11 +29,6 @@
         {
             _context.Feeds.Remove(feed);
             await _context.SaveChangesAsync();
-        }
-
-        public Task<IEnumerable<Feed>> GetCollectionFeedsAsync(long collectionId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task UpdateFeedAsync()

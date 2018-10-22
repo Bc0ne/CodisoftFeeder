@@ -10,8 +10,6 @@
 
         Task AddFeedAsync(Feed feed);
 
-        Task<IEnumerable<Feed>> GetCollectionFeedsAsync(long collectionId);
-
         Task UpdateFeedAsync();
 
         Task DeleteFeedAsync(Feed feed);
