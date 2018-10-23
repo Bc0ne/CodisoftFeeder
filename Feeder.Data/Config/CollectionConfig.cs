@@ -15,8 +15,6 @@
             builder
                 .Property(x => x.Name)
                 .IsRequired();
-
- 
         }
     }
 }
