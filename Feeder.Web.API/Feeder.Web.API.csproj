@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Feeder.API.Models\Feeder.API.Models.csproj" />
-    <ProjectReference Include="..\Feeder.Business\Feeder.Core.csproj" />
     <ProjectReference Include="..\Feeder.Data\Feeder.Data.csproj" />
   </ItemGroup>
 
