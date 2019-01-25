@@ -1,10 +1,8 @@
-﻿namespace Feeder.Core
+﻿namespace Feeder.Core.FeederServices
 {
-    using Feeder.Data.Entities;
     using System.Collections.Generic;
     using System;
-    using Feeder.Core.RSS;
-    using Feeder.Core.Atom;
+    using Feed;
 
     public class FeederService : IFeederService
     {

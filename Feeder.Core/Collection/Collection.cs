@@ -1,6 +1,7 @@
-﻿namespace Feeder.Data.Entities
+﻿namespace Feeder.Core.Collection
 {
     using System.Collections.Generic;
+    using Feed;
 
     public class Collection
     {

@@ -1,7 +1,7 @@
 ﻿namespace Feeder.API.Models.Feed
 {
-    using Data.Entities;
     using System.ComponentModel.DataAnnotations;
+    using Feeder.Core.Feed;
 
     public class FeedInputModel
     {

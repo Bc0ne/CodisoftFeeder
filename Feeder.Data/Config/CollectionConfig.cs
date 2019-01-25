@@ -1,6 +1,6 @@
 ﻿namespace Feeder.Data.Config
 {
-    using Feeder.Data.Entities;
+    using Feeder.Core.Collection;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

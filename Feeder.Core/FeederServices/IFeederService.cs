@@ -1,7 +1,7 @@
-﻿namespace Feeder.Core
+﻿namespace Feeder.Core.FeederServices
 {
-    using Feeder.Data.Entities;
     using System.Collections.Generic;
+    using Feed;
 
     public interface IFeederService
     {

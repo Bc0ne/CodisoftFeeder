@@ -1,7 +1,8 @@
 ﻿namespace Feeder.Data.Context
 {
+    using Feeder.Core.Collection;
+    using Feeder.Core.Feed;
     using Feeder.Data.Config;
-    using Feeder.Data.Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class FeederContext : DbContext

@@ -1,4 +1,4 @@
-﻿namespace Feeder.Data.Entities
+﻿namespace Feeder.Core.Feed
 {
     public class Item
     {

@@ -1,7 +1,7 @@
 ﻿namespace Feeder.Data.Repositiores
 {
+    using Feeder.Core.Collection;
     using Feeder.Data.Context;
-    using Feeder.Data.Entities;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
