@@ -73,6 +73,16 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var contextService = serviceScope.ServiceProvider.GetService<FeederContext>();
+
+                if (contextService.AllMigrationsApplied())
+                {
+                    contextService.EnsureMigrated();
+                }
+            }
+
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);
 
