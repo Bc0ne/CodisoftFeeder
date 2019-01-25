@@ -1,6 +1,5 @@
-﻿namespace Feeder.Data.Repositiores
+﻿namespace Feeder.Core.Feed
 {
-    using Feeder.Data.Entities;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 

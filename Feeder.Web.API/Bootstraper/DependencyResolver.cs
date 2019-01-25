@@ -1,7 +1,7 @@
 ﻿namespace Feeder.Web.API.Bootstraper
 {
     using Autofac;
-    using Feeder.Core;
+    using Feeder.Core.FeederServices;
     using Feeder.Data.Context;
     using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Hosting;

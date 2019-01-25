@@ -1,9 +1,9 @@
-﻿namespace Feeder.Core.RSS
+﻿namespace Feeder.Core.FeederServices
 {
-    using Feeder.Data.Entities;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using Feed;
 
     public class RSSFeedService
     {

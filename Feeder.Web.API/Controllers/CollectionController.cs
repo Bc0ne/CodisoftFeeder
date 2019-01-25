@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using Feeder.API.Models.Collection;
-    using Feeder.Data.Entities;
     using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
     using Feeder.Web.API.Helpers;
+    using Feeder.Core.Collection;
 
     [Route("api/collections")]
     [ApiController]

@@ -1,5 +1,7 @@
-﻿namespace Feeder.Data.Entities
+﻿namespace Feeder.Core.Feed
 {
+    using Collection;
+
     public class Feed
     {
         public enum SourceType : int

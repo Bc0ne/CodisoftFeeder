@@ -5,7 +5,9 @@
     using Feeder.API.Models.Collection;
     using Feeder.API.Models.Feed;
     using Feeder.Core;
-    using Feeder.Data.Entities;
+    using Feeder.Core.Collection;
+    using Feeder.Core.Feed;
+    using Feeder.Core.FeederServices;
     using Feeder.Data.Repositiores;
     using Feeder.Web.API.Helpers;
     using Microsoft.AspNetCore.Mvc;

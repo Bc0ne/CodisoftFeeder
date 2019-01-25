@@ -1,8 +1,8 @@
 ﻿namespace Feeder.Data.Repositiores
 {
     using System.Threading.Tasks;
+    using Feeder.Core.Feed;
     using Feeder.Data.Context;
-    using Feeder.Data.Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class FeedRepository : IFeedRepository
