@@ -23,10 +23,10 @@
         private void LoadModules(ContainerBuilder builder)
         {
             builder.RegisterType<FeederContext>().InstancePerLifetimeScope();
-
             builder.RegisterType<CollectionRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<FeedRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<FeederService>().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<UserRepository>().AsImplementedInterfaces().InstancePerLifetimeScope();
         }
     }
 }
