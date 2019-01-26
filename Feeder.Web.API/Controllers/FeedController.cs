@@ -4,15 +4,15 @@
     using System.Threading.Tasks;
     using Feeder.API.Models.Collection;
     using Feeder.API.Models.Feed;
-    using Feeder.Core;
     using Feeder.Core.Collection;
     using Feeder.Core.Feed;
     using Feeder.Core.FeederServices;
-    using Feeder.Data.Repositiores;
     using Feeder.Web.API.Helpers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Routing;
 
+    [Authorize]
     [Route("api/collections/{id}/feeds")]
     [ApiController]
     public class FeedController : ControllerBase
