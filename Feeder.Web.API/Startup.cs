@@ -3,6 +3,7 @@
     using Autofac;
     using Feeder.Data.Context;
     using Feeder.Web.API.Bootstraper;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Hosting;
@@ -12,8 +13,10 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
     using Serilog;
     using Swashbuckle.AspNetCore.Swagger;
+    using System.Text;
 
     public class Startup
     {
@@ -33,6 +36,21 @@
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var connection = Configuration["ConnectionStrings:FeederDbConnection"];
             services.AddDbContext<FeederContext>(options => options.UseSqlServer(connection));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["IdentitySettings:Isuser"],
+                        ValidAudience = Configuration["IdentitySettings:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["IdentitySettings:SecurityKey"]))
+                    };
+                });
 
             services.AddMvc(setupAction =>
            {
@@ -82,6 +100,8 @@
                     contextService.EnsureMigrated();
                 }
             }
+
+            app.UseAuthentication();
 
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);

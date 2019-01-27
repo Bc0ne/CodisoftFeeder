@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using Feeder.API.Models.Collection;
-    using Feeder.Data.Repositiores;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
     using Feeder.Web.API.Helpers;
     using Feeder.Core.Collection;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     [Route("api/collections")]
     [ApiController]
     public class CollectionController : ControllerBase
