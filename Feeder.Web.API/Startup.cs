@@ -37,6 +37,17 @@
             var connection = Configuration["ConnectionStrings:FeederDbConnection"];
             services.AddDbContext<FeederContext>(options => options.UseSqlServer(connection));
 
+            services.AddCors( options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -102,6 +113,7 @@
             }
 
             app.UseAuthentication();
+            app.UseCors("AllowAllOrigins");
 
             loggerFactory.AddConsole();
             loggerFactory.AddDebug(LogLevel.Information);
